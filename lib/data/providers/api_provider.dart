@@ -1,40 +1,56 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_appauth/flutter_appauth.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:dio/dio.dart';
 import 'package:swifty_companion/core/constants.dart';
-
-// example of login https://api.intra.42.fr/oauth/authorize?client_id=${INTRA_UID}&redirect_uri=swiftycompanion%3A%2F%2Fauth%2Fcallback&response_type=code
+import 'package:swifty_companion/data/providers/auth_api_provider.dart';
 
 class ApiProvider {
-  final FlutterAppAuth appAuth = FlutterAppAuth();
-  final FlutterSecureStorage secureStorage = const FlutterSecureStorage();
+  static const _baseUrl = '$kIntra42URL/v2';
+  static final _dio = Dio(
+    BaseOptions(baseUrl: _baseUrl, responseType: ResponseType.json, headers: {
+      'Authorization': 'Bearer ${AuthApiProvider.credentials.accessToken}'
+    }),
+  );
+  static refresh() {
+    _dio.options.headers['Authorization'] =
+        'Bearer ${AuthApiProvider.credentials.accessToken}';
+  }
 
-  Future<bool> login() async {
-    debugPrint('Login function called');
-    final AuthorizationTokenResponse? result =
-        await appAuth.authorizeAndExchangeCode(
-      AuthorizationTokenRequest(
-        dotenv.env['INTRA_UID'].toString(),
-        kIntraRedirectURL,
-        clientSecret: dotenv.env['INTRA_SECRET'].toString(),
-        scopes: <String>['public'],
-        issuer: kIntra42URL,
-        responseMode: 'query',
-        serviceConfiguration: AuthorizationServiceConfiguration(
-          authorizationEndpoint: kIntraAuthorizeURL,
-          tokenEndpoint: kIntraTokenURL,
-        ),
-      ),
-    );
-    if (result != null) {
-      debugPrint('Login successful !');
-      debugPrint('---> ${result}');
-      return true;
-    } else {
-      debugPrint('Login failed !');
-      debugPrint('xxx> ${result}');
-      return false;
-    }
+  static Future<Response> getCurrentUser() async {
+    return _dio.get('/me');
+  }
+
+  static Future<Response> getProfileInfo(String login) async {
+    return _dio.get('/users/$login');
+  }
+
+  static Future<Response> getCoalitions(String login) async {
+    return _dio.get('/users/$login/coalitions');
+  }
+
+  static Future<Response> getProjects(String login) async {
+    return _dio.get('/users/$login/projects_users');
+  }
+
+  static Future<Response> getAchievements(String login) async {
+    return _dio.get('/users/$login/achievements');
+  }
+
+  static Future<Response> getSkills(String login) async {
+    return _dio.get('/users/$login/skills');
+  }
+
+  static Future<Response> getCampus(String login) async {
+    return _dio.get('/users/$login/campus_users');
+  }
+
+  static Future<Response> getLocations(String login) async {
+    return _dio.get('/users/$login/locations');
+  }
+
+  static Future<Response> getTitles(String login) async {
+    return _dio.get('/users/$login/titles');
+  }
+
+  static Future<Response> getExpertises(String login) async {
+    return _dio.get('/users/$login/expertises');
   }
 }

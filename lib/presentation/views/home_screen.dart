@@ -2,37 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swifty_companion/business_logic/cubit/user_cubit.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<UserCubit, UserState>(builder: (context, state) {
-      if (state is UserLoading) {
-        return const Scaffold(
-          body: Center(
-            child: CircularProgressIndicator(),
-          ),
-        );
-      } else if (state is UserLoaded) {
-        return Scaffold(
-          body: Center(
-            child: Text('Welcome ${state.profile.login}'),
-          ),
-        );
-      } else {
+    return BlocBuilder(
+      bloc: context.read<UserCubit>(),
+      builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            title: const Text('Login'),
+            title: const Text('Home'),
           ),
-          body: Padding(
-            padding: const EdgeInsets.all(16.0),
+          body: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const Text(
-                  'Welcome to Intra 42',
+                  'Welcome to Swifty companion',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 24,
@@ -41,14 +29,14 @@ class LoginScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: () => context.read<UserCubit>().login(),
-                  child: const Text('Login with your intra'),
+                  onPressed: () => context.read<UserCubit>().logout(),
+                  child: const Text('Logout'),
                 ),
               ],
             ),
           ),
         );
-      }
-    });
+      },
+    );
   }
 }
