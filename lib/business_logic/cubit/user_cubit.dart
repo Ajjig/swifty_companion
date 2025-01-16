@@ -1,4 +1,5 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:swifty_companion/data/models/profile_model.dart';
 import 'package:swifty_companion/data/providers/api_provider.dart';
@@ -34,7 +35,7 @@ class UserCubit extends Cubit<UserState> {
   void getCurrentUser() async {
     emit(UserLoading());
     try {
-      final profile = await ApiProvider.getCurrentUser();
+      final Response<dynamic> profile = await ApiProvider.getCurrentUser();
       emit(UserLoaded(ProfileModel.fromJson(profile.data)));
     } catch (e) {
       emit(
