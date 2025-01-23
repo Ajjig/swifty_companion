@@ -60,7 +60,7 @@ class UserLoadedWidget extends StatelessWidget {
                     Navigator.of(context).pushReplacementNamed('/home'),
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
-                  backgroundColor: Colors.blue,
+                  backgroundColor: AppTheme.mainColor,
                   minimumSize: const Size(150, 40),
                 ),
               ),
