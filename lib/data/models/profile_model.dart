@@ -2,83 +2,83 @@ class ProfileModel {
   final int id;
   final String email;
   final String login;
-  final String first_name;
-  final String last_name;
-  final String usual_full_name;
-  final dynamic usual_first_name;
+  final String firstName;
+  final String lastName;
+  final String usualFullName;
+  final dynamic usualFirstName;
   final String url;
   final String phone;
   final String displayname;
   final String kind;
   final Map<String, dynamic> image;
   final bool? staff;
-  final int correction_point;
-  final String pool_month;
-  final String pool_year;
+  final int correctionPoint;
+  final String poolMonth;
+  final String poolYear;
   final dynamic location;
   final int wallet;
-  final String anonymize_date;
-  final String data_erasure_date;
-  final String created_at;
-  final String updated_at;
-  final dynamic alumnized_at;
+  final String anonymizeDate;
+  final String dataErasureDate;
+  final String createdAt;
+  final String updatedAt;
+  final dynamic alumnizedAt;
   final bool? alumni;
   final bool? active;
   final List<dynamic> groups;
-  final List<dynamic> cursus_users;
-  final List<dynamic> projects_users;
-  final List<dynamic> languages_users;
+  final List<dynamic> cursusUsers;
+  final List<dynamic> projectsUsers;
+  final List<dynamic> languagesUsers;
   final List<dynamic> achievements;
   final List<dynamic> titles;
-  final List<dynamic> titles_users;
+  final List<dynamic> titlesUsers;
   final List<dynamic> partnerships;
   final List<dynamic> patroned;
   final List<dynamic> patroning;
-  final List<dynamic> expertises_users;
+  final List<dynamic> expertisesUsers;
   final List<dynamic> roles;
   final List<dynamic> campus;
-  final List<dynamic> campus_users;
+  final List<dynamic> campusUsers;
 
   ProfileModel({
     required this.id,
     required this.email,
     required this.login,
-    required this.first_name,
-    required this.last_name,
-    required this.usual_full_name,
-    this.usual_first_name,
+    required this.firstName,
+    required this.lastName,
+    required this.usualFullName,
+    this.usualFirstName,
     required this.url,
     required this.phone,
     required this.displayname,
     required this.kind,
     required this.image,
     this.staff,
-    required this.correction_point,
-    required this.pool_month,
-    required this.pool_year,
+    required this.correctionPoint,
+    required this.poolMonth,
+    required this.poolYear,
     this.location,
     required this.wallet,
-    required this.anonymize_date,
-    required this.data_erasure_date,
-    required this.created_at,
-    required this.updated_at,
-    this.alumnized_at,
+    required this.anonymizeDate,
+    required this.dataErasureDate,
+    required this.createdAt,
+    required this.updatedAt,
+    this.alumnizedAt,
     this.alumni,
     this.active,
     required this.groups,
-    required this.cursus_users,
-    required this.projects_users,
-    required this.languages_users,
+    required this.cursusUsers,
+    required this.projectsUsers,
+    required this.languagesUsers,
     required this.achievements,
     required this.titles,
-    required this.titles_users,
+    required this.titlesUsers,
     required this.partnerships,
     required this.patroned,
     required this.patroning,
-    required this.expertises_users,
+    required this.expertisesUsers,
     required this.roles,
     required this.campus,
-    required this.campus_users,
+    required this.campusUsers,
   });
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) {
@@ -86,42 +86,42 @@ class ProfileModel {
       id: json['id'],
       email: json['email'],
       login: json['login'],
-      first_name: json['first_name'],
-      last_name: json['last_name'],
-      usual_full_name: json['usual_full_name'],
-      usual_first_name: json['usual_first_name'],
+      firstName: json['first_name'],
+      lastName: json['last_name'],
+      usualFullName: json['usual_full_name'],
+      usualFirstName: json['usual_first_name'],
       url: json['url'],
-      phone: json['phone'],
-      displayname: json['displayname'],
+      phone: json['phone'] ?? 'Hidden',
+      displayname: json['displayname'] ?? json['login'],
       kind: json['kind'],
       image: json['image'],
-      staff: json['staff'],
-      correction_point: json['correction_point'],
-      pool_month: json['pool_month'],
-      pool_year: json['pool_year'],
-      location: json['location'],
+      staff: json['staff'] ?? false,
+      correctionPoint: json['correction_point'] ?? 0,
+      poolMonth: json['pool_month'],
+      poolYear: json['pool_year'],
+      location: json['location'] ?? 'Not available',
       wallet: json['wallet'],
-      anonymize_date: json['anonymize_date'],
-      data_erasure_date: json['data_erasure_date'],
-      created_at: json['created_at'],
-      updated_at: json['updated_at'],
-      alumnized_at: json['alumnized_at'],
+      anonymizeDate: json['anonymize_date'],
+      dataErasureDate: json['data_erasure_date'],
+      createdAt: json['created_at'],
+      updatedAt: json['updated_at'],
+      alumnizedAt: json['alumnized_at'],
       alumni: json['alumni'],
       active: json['active'],
       groups: json['groups'] ?? [],
-      cursus_users: json['cursus_users'] ?? [],
-      projects_users: json['projects_users'] ?? [],
-      languages_users: json['languages_users'] ?? [],
+      cursusUsers: json['cursus_users'] ?? [],
+      projectsUsers: json['projects_users'] ?? [],
+      languagesUsers: json['languages_users'] ?? [],
       achievements: json['achievements'] ?? [],
       titles: json['titles'] ?? [],
-      titles_users: json['titles_users'] ?? [],
+      titlesUsers: json['titles_users'] ?? [],
       partnerships: json['partnerships'] ?? [],
       patroned: json['patroned'] ?? [],
       patroning: json['patroning'] ?? [],
-      expertises_users: json['expertises_users'] ?? [],
+      expertisesUsers: json['expertises_users'] ?? [],
       roles: json['roles'] ?? [],
       campus: json['campus'] ?? [],
-      campus_users: json['campus_users'] ?? [],
+      campusUsers: json['campus_users'] ?? [],
     );
   }
 }
