@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swifty_companion/business_logic/cubit/profile_cubit.dart';
 import 'package:swifty_companion/business_logic/cubit/user_cubit.dart';
 import 'package:swifty_companion/data/providers/auth_api_provider.dart';
+import 'package:swifty_companion/presentation/views/home_screen.dart';
 import 'package:swifty_companion/presentation/views/login_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -13,6 +14,7 @@ void main() async {
   appLinks.uriLinkStream.listen((Uri uri) {
     AuthApiProvider.callback(uri);
   });
+  await AuthApiProvider.init();
 
   await dotenv.load(fileName: '.env');
   runApp(const MyApp());
@@ -42,6 +44,7 @@ class MyApp extends StatelessWidget {
         initialRoute: '/login',
         routes: {
           '/login': (context) => const LoginScreen(),
+          '/home': (context) => const HomeScreen(),
         },
       ),
     );
