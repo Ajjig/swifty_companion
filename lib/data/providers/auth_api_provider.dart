@@ -21,6 +21,8 @@ class AuthApiProvider {
     final credentials = await _storage.read(key: 'credentials');
     if (credentials != null) {
       _credentials = oauth2.Credentials.fromJson(credentials);
+      ApiProvider.refresh();
+      UserCubit().getCurrentUser();
     }
   }
 
