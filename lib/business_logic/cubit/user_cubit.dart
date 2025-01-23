@@ -8,7 +8,8 @@ import 'package:swifty_companion/data/providers/auth_api_provider.dart';
 part 'user_state.dart';
 
 class UserCubit extends Cubit<UserState> {
-  UserCubit._privateConstructor() : super(UserInitial());
+  UserCubit._privateConstructor()
+      : super(AuthApiProvider.isLoggedIn ? UserLoading() : UserInitial());
 
   static final UserCubit _instance = UserCubit._privateConstructor();
 
