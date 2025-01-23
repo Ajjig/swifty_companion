@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swifty_companion/business_logic/cubit/user_cubit.dart';
+import 'package:swifty_companion/presentation/widgets/user_loaded_widget.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -15,11 +16,7 @@ class LoginScreen extends StatelessWidget {
           ),
         );
       } else if (state is UserLoaded) {
-        return Scaffold(
-          body: Center(
-            child: Text('Welcome ${state.profile.login}'),
-          ),
-        );
+        return UserLoadedWidget(profile: state.profile);
       } else {
         return Scaffold(
           appBar: AppBar(
