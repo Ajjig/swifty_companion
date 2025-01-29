@@ -8,6 +8,18 @@ import 'package:percent_indicator/percent_indicator.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
+  Map parseLevel(double? level) {
+    level ??= 0;
+    final int intLevel = level.toInt();
+    final double percentage = (level - intLevel).toDouble();
+    final int percantageInt = (percentage * 100).toInt();
+    return {
+      'level': '$intLevel',
+      'percentage': percentage,
+      'percentageInt': percantageInt,
+    };
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<UserCubit, UserState>(
@@ -78,25 +90,38 @@ class HomeScreen extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(height: 5),
-                            Container(
-                              height: 70,
-                              width: 200,
-                              child: LinearPercentIndicator(
-                                lineHeight: 20,
-                                percent: profile.cursusUsers[0]['level'] / 100,
-                                progressColor: AppTheme.mainColor,
-                                backgroundColor: Colors.white,
-                                animation: true,
-                                animateFromLastPercent: true,
-                                center: Text(
-                                  '${profile.cursusUsers[0]['level']}%',
+                            Row(
+                              children: [
+                                Text(
+                                  parseLevel(
+                                      profile.cursusUsers[1]['level'])['level'],
                                   style: const TextStyle(
-                                    color: AppTheme.secondaryColor,
+                                    color: AppTheme.mainColor,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                              ),
-                            )
+                                SizedBox(
+                                  height: 70,
+                                  width: 200,
+                                  child: LinearPercentIndicator(
+                                    lineHeight: 20,
+                                    percent: parseLevel(profile.cursusUsers[1]
+                                        ['level'])['percentage'],
+                                    progressColor: AppTheme.mainColor,
+                                    backgroundColor: Colors.white,
+                                    animation: true,
+                                    animateFromLastPercent: true,
+                                    center: Text(
+                                      '${parseLevel(profile.cursusUsers[1]['level'])['percentageInt']}%',
+                                      style: const TextStyle(
+                                        color: AppTheme.secondaryColor,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ],
                         ),
                       ],
