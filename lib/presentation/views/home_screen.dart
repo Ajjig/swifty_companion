@@ -32,7 +32,17 @@ class HomeScreen extends StatelessWidget {
           );
         }
         final profile = state.profile;
+        profile.projectsUsers
+            .removeWhere((element) => element['project']['parent_id'] != null);
         return Scaffold(
+          floatingActionButton: FloatingActionButton(
+            backgroundColor: Colors.white,
+            onPressed: () => {},
+            child: const Icon(
+              Icons.search,
+              color: AppTheme.mainColor,
+            ),
+          ),
           body: SafeArea(
             child: Column(
               children: [
@@ -128,39 +138,99 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 20),
                 Expanded(
-                  child: ListView.builder(
-                    itemCount: profile.achievements.length,
-                    itemBuilder: (context, index) {
-                      final achievement = profile.achievements[index];
-                      return ListTile(
-                        title: Text(
-                          achievement['name'],
-                          style: const TextStyle(
-                            color: Colors.black,
+                  child: DefaultTabController(
+                    length: 2,
+                    child: Column(
+                      children: [
+                        const TabBar(
+                          tabs: [
+                            Tab(text: 'Projects'),
+                            Tab(text: 'Achievements'),
+                          ],
+                          labelColor: Colors.black,
+                          unselectedLabelColor: Colors.grey,
+                        ),
+                        Expanded(
+                          child: TabBarView(
+                            physics: const BouncingScrollPhysics(),
+                            children: [
+                              ListView.builder(
+                                itemCount: profile.projectsUsers.length,
+                                itemBuilder: (context, index) {
+                                  final project = profile.projectsUsers[index];
+                                  return ListTile(
+                                    title: Text(
+                                      project['project']['name'],
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    subtitle: Row(
+                                      children: [
+                                        Text(
+                                          project['status'] ?? 'No status',
+                                          style: const TextStyle(
+                                            color: AppTheme.mainColor,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 10),
+                                        Text(
+                                          project['validated?'] != null
+                                              ? 'Validated with ${project['final_mark'] ?? 0} score'
+                                              : 'Not validated',
+                                          style: TextStyle(
+                                            color: project['validated?'] != null
+                                                ? Colors.green
+                                                : Colors.orange,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              ),
+                              ListView.builder(
+                                itemCount: profile.achievements.length,
+                                itemBuilder: (context, index) {
+                                  final achievement =
+                                      profile.achievements[index];
+                                  return ListTile(
+                                    title: Text(
+                                      achievement['name'],
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    subtitle: Text(
+                                      achievement['description'],
+                                      style: const TextStyle(
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                    leading: SvgPicture.network(
+                                      achievement['image']
+                                          .toString()
+                                          .replaceFirst('/uploads/',
+                                              'https://cdn.intra.42.fr/'),
+                                      width: 50,
+                                      height: 50,
+                                      errorBuilder:
+                                          (context, error, stackTrace) {
+                                        return const Icon(Icons.error);
+                                      },
+                                      placeholderBuilder: (context) {
+                                        return const CircularProgressIndicator();
+                                      },
+                                    ),
+                                  );
+                                },
+                              ),
+                            ],
                           ),
                         ),
-                        subtitle: Text(
-                          achievement['description'],
-                          style: const TextStyle(
-                            color: Colors.grey,
-                          ),
-                        ),
-                        leading: SvgPicture.network(
-                          achievement['image'].toString().replaceFirst(
-                              '/uploads/', 'https://cdn.intra.42.fr/'),
-                          width: 50,
-                          height: 50,
-                          errorBuilder: (context, error, stackTrace) {
-                            return const Icon(Icons.error);
-                          },
-                          placeholderBuilder: (context) {
-                            return const CircularProgressIndicator();
-                          },
-                        ),
-                      );
-                    },
+                      ],
+                    ),
                   ),
                 ),
               ],
