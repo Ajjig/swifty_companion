@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swifty_companion/business_logic/cubit/user_cubit.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:swifty_companion/core/theme.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:swifty_companion/presentation/widgets/profile_page_view.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -32,6 +32,13 @@ class HomeScreen extends StatelessWidget {
           );
         }
         final profile = state.profile;
+        print('===========' * 10);
+        print(profile.cursusUsers[1]['skills'].length);
+        print(profile.cursusUsers[1]['skills'].map((skill) {
+          return skill['level'];
+        }).toList());
+        print('===========' * 10);
+
         profile.projectsUsers
             .removeWhere((element) => element['project']['parent_id'] != null);
         return Scaffold(
@@ -138,97 +145,24 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                Expanded(
-                  child: DefaultTabController(
-                    length: 2,
+                DefaultTabController(
+                  length: 3,
+                  child: Expanded(
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const TabBar(
                           tabs: [
+                            Tab(text: 'Skills'),
                             Tab(text: 'Projects'),
                             Tab(text: 'Achievements'),
                           ],
                           labelColor: Colors.black,
                           unselectedLabelColor: Colors.grey,
                         ),
-                        Expanded(
-                          child: TabBarView(
-                            physics: const BouncingScrollPhysics(),
-                            children: [
-                              ListView.builder(
-                                itemCount: profile.projectsUsers.length,
-                                itemBuilder: (context, index) {
-                                  final project = profile.projectsUsers[index];
-                                  return ListTile(
-                                    title: Text(
-                                      project['project']['name'],
-                                      style: const TextStyle(
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    subtitle: Row(
-                                      children: [
-                                        Text(
-                                          project['status'] ?? 'No status',
-                                          style: const TextStyle(
-                                            color: AppTheme.mainColor,
-                                          ),
-                                        ),
-                                        const SizedBox(width: 10),
-                                        Text(
-                                          project['validated?'] != null
-                                              ? 'Validated with ${project['final_mark'] ?? 0} score'
-                                              : 'Not validated',
-                                          style: TextStyle(
-                                            color: project['validated?'] != null
-                                                ? Colors.green
-                                                : Colors.orange,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              ),
-                              ListView.builder(
-                                itemCount: profile.achievements.length,
-                                itemBuilder: (context, index) {
-                                  final achievement =
-                                      profile.achievements[index];
-                                  return ListTile(
-                                    title: Text(
-                                      achievement['name'],
-                                      style: const TextStyle(
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    subtitle: Text(
-                                      achievement['description'],
-                                      style: const TextStyle(
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                    leading: SvgPicture.network(
-                                      achievement['image']
-                                          .toString()
-                                          .replaceFirst('/uploads/',
-                                              'https://cdn.intra.42.fr/'),
-                                      width: 50,
-                                      height: 50,
-                                      errorBuilder:
-                                          (context, error, stackTrace) {
-                                        return const Icon(Icons.error);
-                                      },
-                                      placeholderBuilder: (context) {
-                                        return const CircularProgressIndicator();
-                                      },
-                                    ),
-                                  );
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
+                        const SizedBox(height: 10),
+                        ProfilePageView(profile: profile)
                       ],
                     ),
                   ),
