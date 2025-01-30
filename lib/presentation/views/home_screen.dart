@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swifty_companion/business_logic/cubit/profile_cubit.dart';
 import 'package:swifty_companion/business_logic/cubit/user_cubit.dart';
 import 'package:swifty_companion/core/theme.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -22,14 +23,70 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<UserCubit, UserState>(
+    return BlocBuilder<ProfileCubit, ProfileState>(
       builder: (context, state) {
-        if (state is! UserLoaded) {
-          return const Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
+        if (state is! ProfileLoaded) {
+          if (state is ProfileError) {
+            return Scaffold(
+              body: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Error: ${state.message}',
+                      style: const TextStyle(
+                        color: Colors.red,
+                        fontSize: 20,
+                      ),
+                    ),
+                    Column(
+                      children: [
+                        ElevatedButton.icon(
+                          onPressed: () => Navigator.pop(context),
+                          icon: const Icon(
+                            Icons.arrow_back,
+                            color: Colors.white,
+                            size: 20,
+                          ),
+                          label: const Text(
+                            'Go back to search',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppTheme.mainColor,
+                            minimumSize: const Size(220, 40),
+                            maximumSize: const Size(220, 40),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        ElevatedButton.icon(
+                          onPressed: () => context.read<UserCubit>().logout(),
+                          icon: const Icon(
+                            Icons.logout,
+                            color: Colors.redAccent,
+                            size: 20,
+                          ),
+                          label: const Text('Logout',
+                              style: TextStyle(color: Colors.redAccent)),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            minimumSize: const Size(220, 40),
+                            maximumSize: const Size(220, 40),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            );
+          } else {
+            return const Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          }
         }
         final profile = state.profile;
         profile.projectsUsers
