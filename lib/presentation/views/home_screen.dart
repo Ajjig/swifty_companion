@@ -32,13 +32,6 @@ class HomeScreen extends StatelessWidget {
           );
         }
         final profile = state.profile;
-        print('===========' * 10);
-        print(profile.cursusUsers[1]['skills'].length);
-        print(profile.cursusUsers[1]['skills'].map((skill) {
-          return skill['level'];
-        }).toList());
-        print('===========' * 10);
-
         profile.projectsUsers
             .removeWhere((element) => element['project']['parent_id'] != null);
         return Scaffold(
