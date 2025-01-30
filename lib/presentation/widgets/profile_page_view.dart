@@ -51,7 +51,7 @@ class ProfilePageView extends StatelessWidget {
                   borderColor: Colors.transparent,
                   fillColor: Colors.transparent,
                   dataEntries: [
-                    for (final skill in profile.cursusUsers[1]['skills'])
+                    for (final _ in profile.cursusUsers[1]['skills'])
                       RadarEntry(
                         value: 21,
                       ),
