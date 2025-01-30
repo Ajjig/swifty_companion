@@ -18,6 +18,7 @@ dependencies:
   app_links: ^6.3.3
   flutter_svg: ^2.0.17
   percent_indicator: ^4.2.4
+  fl_chart: ^0.70.2
 
 dev_dependencies:
   flutter_test:
