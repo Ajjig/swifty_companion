@@ -30,11 +30,13 @@ class AuthApiProvider {
           key: 'credentials',
           value: _credentials.toJson(),
         );
+        ApiProvider.refresh();
       }
       ApiProvider.refresh();
       UserCubit().getCurrentUser();
     } else {
       _credentials = oauth2.Credentials('');
+      ApiProvider.refresh();
       UserCubit().logout();
     }
   }
@@ -58,6 +60,7 @@ class AuthApiProvider {
   static Future<void> logout() async {
     await _storage.delete(key: 'credentials');
     _credentials = oauth2.Credentials('');
+    ApiProvider.refresh();
   }
 
   static Future<void> login() async {
