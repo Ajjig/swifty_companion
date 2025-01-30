@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:swifty_companion/business_logic/cubit/profile_cubit.dart';
 import 'package:swifty_companion/business_logic/cubit/user_cubit.dart';
 import 'package:swifty_companion/core/theme.dart';
 import 'package:swifty_companion/data/models/profile_model.dart';
@@ -64,7 +65,10 @@ class UserLoadedWidget extends StatelessWidget {
                     icon: const Icon(Icons.arrow_forward,
                         color: Colors.white, size: 20),
                     label: const Text('Check your profile'),
-                    onPressed: () => Navigator.of(context).pushNamed('/home'),
+                    onPressed: () {
+                      Navigator.of(context).pushNamed('/home');
+                      ProfileCubit().me();
+                    },
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,
                       backgroundColor: AppTheme.mainColor,
@@ -80,8 +84,42 @@ class UserLoadedWidget extends StatelessWidget {
                       size: 20,
                     ),
                     label: const Text('Search for profiles'),
-                    onPressed: () =>
-                        Navigator.of(context).pushReplacementNamed('/login'),
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text(
+                              'Search for profiles',
+                              style: TextStyle(color: AppTheme.mainColor),
+                            ),
+                            content: TextField(
+                              textAlign: TextAlign.center,
+                              autofocus: true,
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: AppTheme.mainColor,
+                                    width: 0.1,
+                                  ),
+                                ),
+                                hintText: 'login',
+                                hintStyle: TextStyle(
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              onSubmitted: (String value) {
+                                Navigator.of(context).pop();
+                                value = value.trim();
+                                if (value.isEmpty) return;
+                                Navigator.of(context).pushNamed('/home');
+                                ProfileCubit().getProfile(value.toLowerCase());
+                              },
+                            ),
+                          );
+                        },
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       foregroundColor: AppTheme.mainColor,
                       minimumSize: const Size(220, 40),
