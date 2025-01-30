@@ -35,14 +35,6 @@ class HomeScreen extends StatelessWidget {
         profile.projectsUsers
             .removeWhere((element) => element['project']['parent_id'] != null);
         return Scaffold(
-          floatingActionButton: FloatingActionButton(
-            backgroundColor: Colors.white,
-            onPressed: () => {},
-            child: const Icon(
-              Icons.search,
-              color: AppTheme.mainColor,
-            ),
-          ),
           body: SafeArea(
             child: Column(
               children: [
@@ -54,20 +46,20 @@ class HomeScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Positioned(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.red,
-                              shape: BoxShape.circle,
-                              border: Border.all(color: Colors.white, width: 3),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.2),
-                                  blurRadius: 10,
-                                  offset: const Offset(0, 5),
-                                ),
-                              ],
-                            ),
+                        Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(color: Colors.white, width: 3),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.2),
+                                blurRadius: 10,
+                                offset: const Offset(0, 5),
+                              ),
+                            ],
+                          ),
+                          child: Hero(
+                            tag: 'avatar',
                             child: CircleAvatar(
                               backgroundImage: NetworkImage(
                                 profile.image['versions']['medium'] ??
