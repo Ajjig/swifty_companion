@@ -29,7 +29,8 @@ class UserCubit extends Cubit<UserState> {
     emit(UserInitial());
   }
 
-  void logout() {
+  void logout() async {
+    await AuthApiProvider.logout();
     emit(UserInitial());
   }
 
