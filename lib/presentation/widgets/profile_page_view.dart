@@ -11,6 +11,9 @@ class ProfilePageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('=====' * 10);
+    print(profile.projectsUsers);
+    print('=====' * 10);
     return Expanded(
       child: TabBarView(
         physics: const BouncingScrollPhysics(),
@@ -136,13 +139,13 @@ class ProfilePageView extends StatelessWidget {
                     ),
                     const SizedBox(width: 10),
                     Text(
-                      project['validated?'] != null
+                      project['validated?'] == true
                           ? 'Validated with ${project['final_mark'] ?? 0} score'
-                          : 'Not validated',
+                          : 'Failed with ${project['final_mark'] ?? 0} score',
                       style: TextStyle(
-                        color: project['validated?'] != null
+                        color: project['validated?'] == true
                             ? Colors.green
-                            : Colors.orange,
+                            : Colors.redAccent,
                       ),
                     ),
                   ],
