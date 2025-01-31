@@ -88,7 +88,7 @@ class ProfileDetails extends StatelessWidget {
               ),
             ),
             Text(
-              profile.cursusUsers[1]['grade'] ?? 'None',
+              profile.cursusUsers[profile.lastCursusIndex]['grade'] ?? 'None',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 12,
