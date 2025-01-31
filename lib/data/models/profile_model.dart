@@ -38,6 +38,7 @@ class ProfileModel {
   final List<dynamic> roles;
   final List<dynamic> campus;
   final List<dynamic> campusUsers;
+  final int lastCursusIndex;
 
   ProfileModel({
     required this.id,
@@ -79,35 +80,79 @@ class ProfileModel {
     required this.roles,
     required this.campus,
     required this.campusUsers,
+    required this.lastCursusIndex,
   });
+
+  @override
+  String toString() {
+    return 'id             : $id\n'
+        'email          : $email\n'
+        'login          : $login\n'
+        'firstName      : $firstName\n'
+        'lastName       : $lastName\n'
+        'usualFullName  : $usualFullName\n'
+        'usualFirstName : $usualFirstName\n'
+        'url            : $url\n'
+        'phone          : $phone\n'
+        'displayname    : $displayname\n'
+        'kind           : $kind\n'
+        'image          : $image\n'
+        'staff          : $staff\n'
+        'correctionPoint: $correctionPoint\n'
+        'poolMonth      : $poolMonth\n'
+        'poolYear       : $poolYear\n'
+        'location       : $location\n'
+        'wallet         : $wallet\n'
+        'anonymizeDate  : $anonymizeDate\n'
+        'dataErasureDate: $dataErasureDate\n'
+        'createdAt      : $createdAt\n'
+        'updatedAt      : $updatedAt\n'
+        'alumnizedAt    : $alumnizedAt\n'
+        'alumni         : $alumni\n'
+        'active         : $active\n'
+        'groups         : $groups\n'
+        'cursusUsers    : $cursusUsers\n'
+        'projectsUsers  : $projectsUsers\n'
+        'languagesUsers : $languagesUsers\n'
+        'achievements   : $achievements\n'
+        'titles         : $titles\n'
+        'titlesUsers    : $titlesUsers\n'
+        'partnerships   : $partnerships\n'
+        'patroned       : $patroned\n'
+        'patroning      : $patroning\n'
+        'expertisesUsers: $expertisesUsers\n'
+        'roles          : $roles\n'
+        'campus         : $campus\n'
+        'campusUsers    : $campusUsers\n';
+  }
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) {
     return ProfileModel(
       id: json['id'],
-      email: json['email'],
+      email: json['email'] ?? 'Hidden',
       login: json['login'],
-      firstName: json['first_name'],
-      lastName: json['last_name'],
-      usualFullName: json['usual_full_name'],
-      usualFirstName: json['usual_first_name'],
+      firstName: json['first_name'] ?? '',
+      lastName: json['last_name'] ?? '',
+      usualFullName: json['usual_full_name'] ?? '',
+      usualFirstName: json['usual_first_name'] ?? '',
       url: json['url'],
       phone: json['phone'] ?? 'Hidden',
       displayname: json['displayname'] ?? json['login'],
-      kind: json['kind'],
-      image: json['image'],
+      kind: json['kind'] ?? 'User',
+      image: json['image'] ?? {},
       staff: json['staff'] ?? false,
       correctionPoint: json['correction_point'] ?? 0,
-      poolMonth: json['pool_month'],
-      poolYear: json['pool_year'],
+      poolMonth: json['pool_month'] ?? 'Not available',
+      poolYear: json['pool_year'] ?? 'Not available',
       location: json['location'] ?? 'Not available',
-      wallet: json['wallet'],
-      anonymizeDate: json['anonymize_date'],
-      dataErasureDate: json['data_erasure_date'],
+      wallet: json['wallet'] ?? 0,
+      anonymizeDate: json['anonymize_date'] ?? '',
+      dataErasureDate: json['data_erasure_date'] ?? '',
       createdAt: json['created_at'],
       updatedAt: json['updated_at'],
-      alumnizedAt: json['alumnized_at'],
-      alumni: json['alumni'],
-      active: json['active'],
+      alumnizedAt: json['alumnized_at'] ?? '',
+      alumni: json['alumni'] ?? false,
+      active: json['active'] ?? false,
       groups: json['groups'] ?? [],
       cursusUsers: json['cursus_users'] ?? [],
       projectsUsers: json['projects_users'] ?? [],
@@ -122,6 +167,8 @@ class ProfileModel {
       roles: json['roles'] ?? [],
       campus: json['campus'] ?? [],
       campusUsers: json['campus_users'] ?? [],
+      lastCursusIndex:
+          (json['cursus_users'] != null) ? json['cursus_users'].length - 1 : 0,
     );
   }
 }
