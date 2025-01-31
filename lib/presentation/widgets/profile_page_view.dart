@@ -139,9 +139,11 @@ class ProfilePageView extends StatelessWidget {
                     ),
                     const SizedBox(width: 10),
                     Text(
-                      project['validated?'] == true
-                          ? 'Validated with ${project['final_mark'] ?? 0} score'
-                          : 'Failed with ${project['final_mark'] ?? 0} score',
+                      project['status'] != 'finished'
+                          ? ''
+                          : project['validated?'] == true
+                              ? 'Validated with ${project['final_mark'] ?? 0} score'
+                              : 'Failed with ${project['final_mark'] ?? 0} score',
                       style: TextStyle(
                         color: project['validated?'] == true
                             ? Colors.green
