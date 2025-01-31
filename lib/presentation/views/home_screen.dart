@@ -79,8 +79,10 @@ class HomeScreen extends StatelessWidget {
                             color: Colors.redAccent,
                             size: 20,
                           ),
-                          label: const Text('Logout',
-                              style: TextStyle(color: Colors.redAccent)),
+                          label: const Text(
+                            'Logout',
+                            style: TextStyle(color: Colors.redAccent),
+                          ),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white,
                             minimumSize: const Size(220, 40),
