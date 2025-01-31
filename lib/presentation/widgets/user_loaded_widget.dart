@@ -97,12 +97,6 @@ class UserLoadedWidget extends StatelessWidget {
                               textAlign: TextAlign.center,
                               autofocus: true,
                               decoration: const InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: AppTheme.mainColor,
-                                    width: 0.1,
-                                  ),
-                                ),
                                 hintText: 'login',
                                 hintStyle: TextStyle(
                                   color: Colors.grey,
