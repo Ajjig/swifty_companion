@@ -19,7 +19,23 @@ class ApiProvider {
   }
 
   static Future<Response> getProfileInfo(String login) async {
-    return _dio.get('/users/$login');
+    return _dio.get('/users/$login').catchError((err) {
+      if (err is DioException) {
+        if (err.response?.statusCode == 404) {
+          throw Exception('Login not found');
+        } else if (err.response?.statusCode == 401) {
+          throw Exception('You are not authorized to access this user');
+        } else if (err.response?.statusCode == 429) {
+          throw Exception('Too many requests, please try again later');
+        } else {
+          throw Exception(
+              'Ops! Something went wrong, please verify your connection and try again.');
+        }
+      } else {
+        throw Exception(
+            'Ops! Something went wrong, please verify your connection and try again.');
+      }
+    });
   }
 
   static Future<Response> getCoalitions(String login) async {
