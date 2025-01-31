@@ -11,9 +11,6 @@ class ProfilePageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('=====' * 10);
-    print(profile.projectsUsers);
-    print('=====' * 10);
     return Expanded(
       child: TabBarView(
         physics: const BouncingScrollPhysics(),
