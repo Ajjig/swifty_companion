@@ -162,8 +162,9 @@ class HomeScreen extends StatelessWidget {
                             Row(
                               children: [
                                 Text(
-                                  parseLevel(
-                                      profile.cursusUsers[1]['level'])['level'],
+                                  parseLevel(profile
+                                          .cursusUsers[profile.lastCursusIndex]
+                                      ['level'])['level'],
                                   style: const TextStyle(
                                     color: AppTheme.mainColor,
                                     fontWeight: FontWeight.bold,
@@ -174,14 +175,15 @@ class HomeScreen extends StatelessWidget {
                                   width: 200,
                                   child: LinearPercentIndicator(
                                     lineHeight: 20,
-                                    percent: parseLevel(profile.cursusUsers[1]
+                                    percent: parseLevel(profile.cursusUsers[
+                                            profile.lastCursusIndex]
                                         ['level'])['percentage'],
                                     progressColor: AppTheme.mainColor,
                                     backgroundColor: Colors.white,
                                     animation: true,
                                     animateFromLastPercent: true,
                                     center: Text(
-                                      '${parseLevel(profile.cursusUsers[1]['level'])['percentageInt']}%',
+                                      '${parseLevel(profile.cursusUsers[profile.lastCursusIndex]['level'])['percentageInt']}%',
                                       style: const TextStyle(
                                         color: AppTheme.secondaryColor,
                                         fontWeight: FontWeight.bold,
