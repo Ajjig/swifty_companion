@@ -70,7 +70,10 @@ class HomeScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 10),
                         ElevatedButton.icon(
-                          onPressed: () => context.read<UserCubit>().logout(),
+                          onPressed: () {
+                            context.read<UserCubit>().logout();
+                            Navigator.pop(context);
+                          },
                           icon: const Icon(
                             Icons.logout,
                             color: Colors.redAccent,
