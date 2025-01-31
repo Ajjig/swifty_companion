@@ -34,13 +34,21 @@ class HomeScreen extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    Icon(
+                      Icons.person_off,
+                      color: Colors.red,
+                      size: 50,
+                    ),
                     Text(
-                      'Error: ${state.message}',
+                      state.message.replaceFirst('Exception:', '').trim(),
+                      textAlign: TextAlign.center,
                       style: const TextStyle(
                         color: Colors.red,
                         fontSize: 20,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
+                    const SizedBox(height: 20),
                     Column(
                       children: [
                         ElevatedButton.icon(
