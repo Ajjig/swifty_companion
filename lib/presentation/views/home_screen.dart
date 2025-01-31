@@ -149,9 +149,9 @@ class HomeScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              '${profile.firstName} ${profile.lastName}',
+                              '${profile.firstName} ${profile.lastName} (${profile.login})',
                               style: const TextStyle(
-                                fontSize: 20,
+                                fontSize: 15,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
                                 shadows: [
