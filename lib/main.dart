@@ -1,5 +1,6 @@
 import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:swifty_companion/business_logic/cubit/profile_cubit.dart';
 import 'package:swifty_companion/business_logic/cubit/user_cubit.dart';
@@ -17,7 +18,12 @@ void main() async {
     AuthApiProvider.callback(uri);
   });
   await AuthApiProvider.init();
-  runApp(const MyApp());
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]).then((_) {
+    runApp(const MyApp());
+  });
 }
 
 class MyApp extends StatelessWidget {
