@@ -167,8 +167,11 @@ class ProfileModel {
       roles: json['roles'] ?? [],
       campus: json['campus'] ?? [],
       campusUsers: json['campus_users'] ?? [],
-      lastCursusIndex:
-          (json['cursus_users'] != null) ? json['cursus_users'].length - 1 : 0,
+      lastCursusIndex: (json['cursus_users'] != null)
+          ? json['cursus_users'].length > 1
+              ? 1
+              : 0
+          : 0,
     );
   }
 }
