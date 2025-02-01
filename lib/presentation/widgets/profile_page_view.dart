@@ -11,6 +11,10 @@ class ProfilePageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('-----------------------------------------');
+    profile.achievements.forEach((element) {
+      print(element["name"] + ": " + element['image']);
+    });
     return Expanded(
       child: TabBarView(
         physics: const BouncingScrollPhysics(),
