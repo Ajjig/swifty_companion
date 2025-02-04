@@ -1,16 +1,17 @@
 # swifty_companion
 
-A new Flutter project.
+Swifty Companion is a mobile application built using Flutter that provides detailed information about 42 school students. It allows users to search for students, view their profiles, and track their progress through various projects and levels.
 
-## Getting Started
+## Used tools
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Flutter 3.16
+- Flutter Bloc for state management
+- Dio for HTTP requests
+- OAuth2 for authentication
+- Flutter Secure Storage for data persistence
+- URL Launcher for external links
+- Flutter SVG for vector graphics
+- Percent Indicator for progress bars
+- FL Chart for data visualization
+- Flutter Native Splash for splash screen
+- Flutter Launcher Icons for app icons
