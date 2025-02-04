@@ -105,6 +105,7 @@ class UserLoadedWidget extends StatelessWidget {
                               onSubmitted: (String value) {
                                 Navigator.of(context).pop();
                                 value = value.trim();
+                                value = value.replaceAll(RegExp(r'\s+'), '-');
                                 if (value.isEmpty) return;
                                 Navigator.of(context).pushNamed('/home');
                                 ProfileCubit().getProfile(value.toLowerCase());
